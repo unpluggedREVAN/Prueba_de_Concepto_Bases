@@ -32,11 +32,11 @@ namespace CRUD
         }
 
 
-        SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-QJBOA1G;Initial Catalog=DefaultBase;Integrated Security=True");
+        SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-38G492P;Initial Catalog=Prueba1;Integrated Security=True");
 
         void GetListaDeArticulos()
         {
-            SqlCommand command = new SqlCommand("Select * from Articulo order by nombre", conexion);
+            SqlCommand command = new SqlCommand("EXECUTE ShowData1", conexion);
             SqlDataAdapter sd = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
             sd.Fill(dt);

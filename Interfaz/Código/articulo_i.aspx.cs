@@ -17,19 +17,38 @@ namespace CRUD.Vista
 
         }
 
-        SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-QJBOA1G;Initial Catalog=DefaultBase;Integrated Security=True");
+        SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-38G492P;Initial Catalog=Prueba1;Integrated Security=True");
+
         protected void Button2_Click(object sender, EventArgs e)//boton insertar
         {
-            //Se asignan las variables para los atributos a insertar
-            string articulo = TextBox1.Text;
-            double precio = double.Parse(TextBox2.Text);
-            conexion.Open();//Se abre la conexion
-            SqlCommand command = new SqlCommand("Insert into Articulo values ('" + articulo + "','" + precio + "')", conexion);
+
+            string nombreArticulo = TextBox1.Text;
+            double precioArticulo = double.Parse(TextBox2.Text);
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = conexion;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "SP_Insert1";
+
+            command.Parameters.AddWithValue("ParNombre", nombreArticulo);
+            command.Parameters.AddWithValue("ParPrecio", precioArticulo);
+
+            conexion.Open();
             command.ExecuteNonQuery();
-            conexion.Close();//Se cierra la conexion
+            conexion.Close();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Insercion exitosa');", true);
-            //GetListaDeArticulos();
-            //Actualizar, es decir llamar al update con un store procedure 
+
+            /* //Se asignan las variables para los atributos a insertar
+             string articulo = TextBox1.Text;
+             double precio = double.Parse(TextBox2.Text);
+             conexion.Open();//Se abre la conexion
+             SqlCommand command = new SqlCommand("Insert into Articulo values ('" + articulo + "','" + precio + "')", conexion);
+             command.ExecuteNonQuery();
+             conexion.Close();//Se cierra la conexion
+             ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Insercion exitosa');", true);
+             //GetListaDeArticulos();
+             //Actualizar, es decir llamar al update con un store procedure 
+            */
         }
 
         protected void Button1_Click(object sender, EventArgs e)//boton cerrar
